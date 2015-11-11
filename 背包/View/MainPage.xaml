@@ -1,0 +1,221 @@
+﻿<Page
+    x:Class="背包.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:背包.View"    
+    xmlns:converter="using:背包.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+    <Page.Resources>
+        <Storyboard x:Name="st1">
+            <DoubleAnimation Storyboard.TargetName="pop"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1"
+                             To="0"
+                             Duration="0:0:2.5"
+                             EnableDependentAnimation="True"
+                             >
+            </DoubleAnimation>
+        </Storyboard>
+        <converter:usericonConverter x:Key="IconCon"/>
+        <converter:timeConverter x:Key="TimeCon"/>
+        <Thickness x:Key="PhoneBorderThickness">2.5</Thickness>
+        <FontFamily x:Key="PhoneFontFamilyNormal">Segoe WP</FontFamily>
+        <FontWeight x:Key="PhoneButtonFontWeight">Semibold</FontWeight>
+        <x:Double x:Key="TextStyleLargeFontSize">18.14</x:Double>
+        <Thickness x:Key="PhoneButtonContentPadding">9.5,0,9.5,3.5</Thickness>
+        <x:Double x:Key="PhoneButtonMinHeight">57.5</x:Double>
+        <x:Double x:Key="PhoneButtonMinWidth">109</x:Double>
+        <Thickness x:Key="PhoneTouchTargetOverhang">0,9.5</Thickness>
+        <SolidColorBrush x:Key="ButtonDisabledBackgroundThemeBrush" Color="Transparent"/>
+        <Style x:Key="GridButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#44ABF0"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource PhoneForegroundBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="微软雅黑"/>
+            <Setter Property="FontWeight" Value="{ThemeResource PhoneButtonFontWeight}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Padding" Value="{ThemeResource PhoneButtonContentPadding}"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="Grid" Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition From="Pressed" To="PointerOver">
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="Grid"/>
+                                            </Storyboard>
+                                        </VisualTransition>
+                                        <VisualTransition From="PointerOver" To="Normal">
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="Grid"/>
+                                            </Storyboard>
+                                        </VisualTransition>
+                                        <VisualTransition From="Pressed" To="Normal">
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="Grid"/>
+                                            </Storyboard>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="Grid"/>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border" CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" Margin="0">
+                                <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="ms-appx:Assets/MainPageBackground.png"/>
+        </Grid.Background>
+        <ProgressBar VerticalAlignment="Top" Name="MainPageLoad" IsIndeterminate="True" Canvas.ZIndex="1" Height="15" Visibility="Visible">
+            <ProgressBar.Background>
+                <SolidColorBrush Color="Black" Opacity="0.6"/>
+            </ProgressBar.Background>
+        </ProgressBar>
+        <Popup x:Name="pop" IsOpen="False" Opacity="1">
+            <Popup.RenderTransform>
+                <CompositeTransform></CompositeTransform>
+            </Popup.RenderTransform>
+            <Grid  Height="20" Background="Black" Width="400" >
+                <TextBlock Text="再按一次退出应用" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontFamily="微软雅黑"></TextBlock>
+            </Grid>
+        </Popup>
+        <Hub Name="Hub">
+            <Hub.Background>
+                <ImageBrush x:Name="MainBackground" Stretch="UniformToFill"/>
+            </Hub.Background>
+            <Hub.Header>
+                <TextBlock Text="旅行家" Margin="0,30,0,0" FontFamily="ms-appx:/ttf/迷你简太极.TTF#迷你简太极" FontSize="76"/>
+            </Hub.Header>
+            <HubSection Header="在路上" Name="FirstPage">
+                <DataTemplate>
+                    <ListView Name="MainList" Loaded="MainList_Loaded" ItemClick="MainList_ItemClick" IsItemClickEnabled="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Canvas Height="140" Margin="0,5" Name="MainTravel" Holding="MainTravel_Holding">
+                                    <Border BorderBrush="#FFFFFF" BorderThickness="3" CornerRadius="35" Canvas.ZIndex="2">
+                                        <Ellipse Margin="0" Height="70" Width="70">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding LocationOrAuthor,Converter={StaticResource IconCon}}"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                    </Border>
+                                    <Border BorderBrush="#FFFFFF" BorderThickness="3" CornerRadius="35" Canvas.ZIndex="1">
+                                        <Ellipse Margin="0" Height="70" Width="70" >
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="ms-appx:/Assets/kong.png"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                    </Border>
+                                    <Grid Width="335" Height="100" Canvas.Top="20" Canvas.Left="10" Canvas.ZIndex="0" Background="#FFFFFF" Margin="0">
+                                        <TextBlock Text="{Binding Time,Converter={StaticResource TimeCon}}" Foreground="#C3C3C3" FontSize="20" FontFamily="微软雅黑" HorizontalAlignment="Right" Margin="5,5,10,5"/>
+                                        <TextBlock Text="{Binding Title}" Foreground="Black" Margin="40,60,0,0" FontFamily="ms-appx:/ttf/迷你简太极.TTF#迷你简太极" FontSize="30"/>
+                                        <TextBlock Text="{Binding LocationOrAuthor}" Foreground="#C3C3C3" FontSize="20" FontFamily="微软雅黑" Margin="80,5,0,0"/>
+                                    </Grid>
+                                    <FlyoutBase.AttachedFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="收藏" Name="Collection" Click="Collection_Click"/>
+                                        </MenuFlyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                </Canvas>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="我的背包">
+                <DataTemplate>
+                    <GridView Name="PersonInfo">
+                        <GridView.Items>
+                            <!--<Button Content="我的旅程" Height="100" Width="100" Margin="30,30,10,5" Name="MyTravel" Style="{StaticResource GridButtonStyle}" Click="MyTravel_Click"/>
+                            <Button Content="发起新的旅程" Margin="220,-85,0,0" Height="140" Width="140" x:Name="AddTravel" Style="{StaticResource GridButtonStyle}" Click="AddTravel_Click"/>
+                            <Button Content="寄明信片" Height="130" Width="130" Margin="80,-50,0,0" x:Name="Psotcard" Style="{StaticResource GridButtonStyle}" Click="Psotcard_Click" />
+                            <Button Content="我的收藏" Height="150" Width="150" Margin="10,10,0,0" Name="MyCollection" Style="{StaticResource GridButtonStyle}" Click="MyCollection_Click"/>
+                            <Button Content="足迹" Height="150" Width="150" Margin="60,-50,0,0" Name="Footprint" Style="{StaticResource GridButtonStyle}" Click="Footprint_Click" />-->
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="我的旅程" Opacity="1" Height="180" Width="180" Margin="0,30,10,5" Name="MyTravel" Style="{StaticResource GridButtonStyle}" Click="MyTravel_Click"/>
+                                    <Rectangle Fill="#44ABF0" Opacity="0.4" Height="66" Margin="0,-35,0,0" Width="66"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="发起新的旅程" Margin="190,-85,0,0" Height="140" Width="140" x:Name="AddTravel" Style="{StaticResource GridButtonStyle}" Click="AddTravel_Click"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="寄明信片" Height="130" Width="130" Margin="50,-50,0,0" x:Name="Psotcard" Style="{StaticResource GridButtonStyle}" Click="Psotcard_Click" />
+                                    <Rectangle Fill="#44ABF0" Opacity="0.6" Margin="10,10,0,0" VerticalAlignment="Top" Height="69" Width="70"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="#44ABF0" Opacity="0.5" Height="90" Margin="90,-50,0,0" Width="90"/>
+                                    <Button Content="我的收藏" Height="150" Width="150" Margin="10,10,0,0" Name="MyCollection" Style="{StaticResource GridButtonStyle}" Click="MyCollection_Click"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="足迹" Height="150" Width="150" Margin="30,-50,0,0" Name="Footprint" Style="{StaticResource GridButtonStyle}" Click="Footprint_Click" />
+                                    <Rectangle Fill="#44ABF0" Opacity="0.5" Margin="10,10,0,0" VerticalAlignment="Top" Height="90" Width="90"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GridView.Items>
+                    </GridView>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
+        <StackPanel Name="NewPanel" VerticalAlignment="Center" Visibility="Collapsed" Background="CornflowerBlue">
+            <TextBlock Text="标题" Margin="0,10,10,0" FontSize="25"/>
+            <TextBox Name="Title" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="NewTravelSave" Click="NewTravelSave_Click" Content="保存" HorizontalAlignment="Center"/>
+                <Button Name="Cancel" Click="Cancel_Click" Content="取消" Margin="10,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar Background="#29C4FD">
+            <AppBarButton x:Name="Add" Icon="Camera" Label="New" Click="Add_Click"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="账号" Click="AppBarButton_Click"/>
+                <AppBarButton Label="设置" Name="Setting" Click="Setting_Click"/>
+                <AppBarButton Label="关于我们" Name="About" Click="About_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+</Page>

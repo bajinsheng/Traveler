@@ -1,0 +1,71 @@
+﻿<Page
+    x:Class="背包.View.UserTravelDetail"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:背包.View"
+    xmlns:converter="using:背包.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Storyboard x:Name="iconboard">
+            <DoubleAnimation From="0" To="3600" Duration="00:00:3" 
+                     Storyboard.TargetName="iconTransform" 
+                     Storyboard.TargetProperty="Angle">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <converter:photouriConverter x:Key="Convert1"/>
+    </Page.Resources>
+    <Grid Background="#F0F0F0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Height="120" Orientation="Horizontal">
+            <StackPanel.Background>
+                <ImageBrush ImageSource="ms-appx:Assets/Title.png"/>
+            </StackPanel.Background>
+            <Border BorderThickness="3" BorderBrush="#29C4FD" Width="80" Height="80" CornerRadius="40" Margin="10,30,0,0">
+                <Ellipse x:ConnectionId='3' Name="icon"                     >
+                    <Ellipse.RenderTransform>
+                        <RotateTransform x:Name="iconTransform" CenterX="37" CenterY="37"/>
+                    </Ellipse.RenderTransform>
+                    <Ellipse.Fill>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:Assets/cam.png"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Border>
+            <StackPanel>
+                <TextBlock x:Name="UserTravelDetailTitle" Text="完美旅行" FontFamily="ms-appx:/ttf/迷你简太极.TTF#迷你简太极" FontSize="36" Margin="20,40,20,0"/>
+                <TextBlock Text=""  FontFamily="Brush Script Std" Margin="30,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+        <Image Grid.Row="1" Canvas.ZIndex="1" Name="EmptyIcon" Source="ms-appx:Assets/emptyicon.png" Visibility="Collapsed" Height="150" Width="150"/>
+        <ListView Name="UserTravelDetailList" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:ConnectionId='1' Width="360" Height="600" Margin="10" Name="UserTravelDetailItem"                                       >
+                        <Grid.Background>
+                            <ImageBrush ImageSource="{Binding Id,Converter={StaticResource Convert1}}"/>
+                        </Grid.Background>
+                        <TextBlock FontSize="15" FontFamily="微软雅黑" Text="{Binding Title}" HorizontalAlignment="Left" Margin="15" TextWrapping="WrapWholeWords"/>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                            <TextBlock FontSize="9" FontFamily="微软雅黑" Text="{Binding LocationOrAuthor}" Margin="5" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding Time}" FontFamily="微软雅黑" FontSize="9" Margin="5,0,0,5" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                        <FlyoutBase.AttachedFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem x:ConnectionId='2' Text="删除" Name="Delete"                     />
+                            </MenuFlyout>
+                        </FlyoutBase.AttachedFlyout>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
+

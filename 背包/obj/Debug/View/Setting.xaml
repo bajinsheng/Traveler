@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="背包.View.Setting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:背包.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Storyboard x:Name="iconboard">
+            <DoubleAnimation From="0" To="3600" Duration="00:00:3" 
+                     Storyboard.TargetName="iconTransform" 
+                     Storyboard.TargetProperty="Angle">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseInOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Page.Resources>
+    <Grid Background="#F0F0F0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Height="120" Orientation="Horizontal">
+            <StackPanel.Background>
+                <ImageBrush ImageSource="ms-appx:Assets/Title.png"/>
+            </StackPanel.Background>
+            <Border BorderThickness="3" BorderBrush="#29C4FD" Width="80" Height="80" CornerRadius="60" Margin="10,30,0,0" >
+                <Ellipse Name="icon">
+                    <Ellipse.RenderTransform>
+                        <RotateTransform x:Name="iconTransform" CenterX="40" CenterY="40"/>
+                    </Ellipse.RenderTransform>
+                    <Ellipse.Fill>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:Assets/cam.png"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Border>
+            <StackPanel>
+                <TextBlock x:Name="AccountTitle" Text="设置" FontFamily="ms-appx:/ttf/迷你简太极.TTF#迷你简太极" FontSize="36" Margin="20,40,20,0"/>
+                <TextBlock   FontFamily="Brush Script Std" Margin="30,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <StackPanel Margin="5,20">
+                <ToggleSwitch x:ConnectionId='1' Name="WallSet" Foreground="#797979"                           >
+                    <ToggleSwitch.Header>
+                        <TextBlock Text="动态壁纸" FontSize="25" Foreground="Black"/>
+                    </ToggleSwitch.Header>
+                </ToggleSwitch>
+                <ToggleSwitch x:ConnectionId='2' Name="LocateSet" Foreground="#797979"                            >
+                    <ToggleSwitch.Header>
+                        <TextBlock Text="定位" FontSize="25" Foreground="Black"/>
+                    </ToggleSwitch.Header>
+                </ToggleSwitch>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
+

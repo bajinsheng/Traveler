@@ -1,0 +1,15 @@
+﻿<Page
+    x:Class="背包.View.Loading"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:背包.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <ProgressBar Name="UploadProgressBar" IsIndeterminate="True" Height="30" Visibility="Visible"/>
+        <Rectangle Name="filter" Canvas.ZIndex="1" Fill="Black" Opacity="0.8" Visibility="Visible"/>
+    </Grid>
+</Page>

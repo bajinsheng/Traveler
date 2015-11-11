@@ -1,0 +1,76 @@
+﻿<Page
+    x:Class="背包.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:背包"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Hub Name="Hub">
+            <Hub.Header>背包</Hub.Header>
+            <Hub.Background>
+                <ImageBrush/>
+            </Hub.Background>
+            <HubSection Header="游记" Name="FirstPage">
+                <DataTemplate >                  
+                    <ListView x:ConnectionId='4' Name="MainList"                                                         IsItemClickEnabled="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="140" Margin="0,10">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Title}" FontSize="30" Margin="10"/>
+                                        <TextBlock Text="{Binding LocationOrAuthor}" FontSize="15" Margin="20"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="个人信息">
+                <DataTemplate>
+                    <GridView Name="PersonInfo">
+                        <GridView.Items>
+                            <Button x:ConnectionId='2' Content="我的旅程" Name="MyTravel"                       />
+                            <Button x:ConnectionId='3' Content="发起新的旅程" Name="AddTravel"                        />
+                            <Button Content="设置"/>
+                        </GridView.Items>
+                        <GridView.ItemContainerStyle>
+                            <Style TargetType="GridViewItem">
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="20"/>
+                                <Setter Property="Height" Value="130"/>
+                                <Setter Property="Width" Value="130"/>
+                                <Setter Property="Background" Value="Green"/>
+                            </Style>
+                        </GridView.ItemContainerStyle>
+                    </GridView>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
+        <StackPanel Name="NewPanel" VerticalAlignment="Center" Visibility="Collapsed" Background="CornflowerBlue">
+            <TextBlock Text="标题" Margin="0,10,10,0" FontSize="25"/>
+            <TextBox Name="Title" />
+            <Button x:ConnectionId='1' Name="NewTravelSave"                             Content="保存" HorizontalAlignment="Center"/>
+        </StackPanel>
+        
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='5' x:Name="Add" Icon="Add" Label="New"                  />
+            <AppBarButton x:Name="Refresh" Icon="Refresh" Label="Refresh"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:ConnectionId='6' Label="登陆"                           />
+                <AppBarButton Label="关于我们"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+</Page>
+
